@@ -1,6 +1,5 @@
 <template>
-  <div class="about">
-    <NavBar @selected="log"></NavBar>
+  <div>
     <Header :numCorrect="numCorrect" :numTotal="numTotal" />
     <div class="div">Timer: {{ countDown }}</div>
     <div v-if="countDown === 0" class="cons">Times up</div>
@@ -20,18 +19,21 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar";
-
 import Header from "../components/Header.vue";
 import QuestionBox from "../components/QuestionBox";
 import { setTimeout } from "timers";
 
 export default {
-  name: "app",
+  name: "GamePlay",
   components: {
     QuestionBox,
-    Header,
-    NavBar
+    Header
+  },
+  props: {
+    apiObject: {
+      type: Object,
+      default: () => {}
+    }
   },
   data() {
     return {
@@ -40,9 +42,7 @@ export default {
       numCorrect: 0,
       numTotal: 0,
       countDown: null,
-      selectedCategoryOption: null,
-      fetchQuery:
-        "https://opentdb.com/api.php?amount=20&category=22&difficulty=easy&type=multiple"
+      selectedCategoryOption: null
     };
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
     }
   },
   mounted: function() {
-    fetch(this.fetchQuery, {
+    fetch(`https://opentdb.com/api.php?amount=${this.apiObject.apiAmount}&category=${this.apiObject.apiCategory.id}&difficulty=${this.apiObject.apiDifficulty}&type=${this.apiObject.apiType}`, {
       method: "get"
     })
       .then(response => {
