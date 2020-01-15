@@ -80,9 +80,12 @@ export default {
     }
   },
   mounted: function() {
-    fetch(`https://opentdb.com/api.php?amount=${this.apiObject.apiAmount}&category=${this.apiObject.apiCategory.id}&difficulty=${this.apiObject.apiDifficulty}&type=${this.apiObject.apiType}`, {
-      method: "get"
-    })
+    fetch(
+      `https://opentdb.com/api.php?amount=${this.apiObject.apiAmount}&category=${this.apiObject.apiCategory.id}&difficulty=${this.apiObject.apiDifficulty}&type=${this.apiObject.apiType}`,
+      {
+        method: "get"
+      }
+    )
       .then(response => {
         return response.json();
       })

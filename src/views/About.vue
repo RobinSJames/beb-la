@@ -50,10 +50,10 @@ export default {
       this.selectedCategoryOption = x;
     },
     state() {
-      if (this.countDown === 0) {
-        // disable eslint no-console
-        // console.log("zero");
-      }
+      // if (this.countDown === 0) {
+      //   disable eslint no-console
+      //   console.log("zero");
+      // }
     },
     reset() {
       this.countDown = null;
@@ -80,9 +80,12 @@ export default {
     }
   },
   mounted: function() {
-    fetch(this.fetchQuery, {
-      method: "get"
-    })
+    fetch(
+      `https://opentdb.com/api.php?amount=${this.$attrs.apiAmount}&category=${this.$attrs.apiCategory.id}&difficulty=${this.$attrs.apiDifficulty}&type=${this.$attrs.apiType}`,
+      {
+        method: "get"
+      }
+    )
       .then(response => {
         return response.json();
       })

@@ -32,7 +32,7 @@ export default {
     createApiCall() {
       this.apiCall.apiAmount = this.amount;
       this.apiCall.apiCategory = this.category;
-      this.apiCall.apiDiffculty = this.difficulty;
+      this.apiCall.apiDifficulty = this.difficulty;
       this.apiCall.apiType = this.type;
       this.$emit("api", this.apiCall);
     }

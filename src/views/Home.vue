@@ -1,19 +1,19 @@
 <template>
   <div class="home">
     <NavBar />
-    <div v-if="token.response_code === 0">
-      <LandingPage />
-      <Amount @amount="setAmount" />
-      <Category @category="setCategory" />
-      <Difficulty @difficulty="setDifficulty" />
+    <div v-if="token.response_code === 0" class="background">
+      <LandingPage v-if="page === 1" @clicked="page++" />
+      <Amount v-if="page === 2" @amount="setAmount" />
+      <Category v-if="page === 3" @category="setCategory" />
+      <Difficulty v-if="page === 4" @difficulty="setDifficulty" />
       <GameStart
+        v-if="page === 5"
         :amount="selectedAmount"
         :category="selectedCategory"
         :difficulty="selectedDifficulty"
         :type="type"
-        @api="log"
+        @api="sendParams"
       />
-      <GamePlay :api-object="apiObject" />
     </div>
   </div>
 </template>
@@ -25,7 +25,6 @@ import Amount from "@/components/Amount";
 import Category from "@/components/Category";
 import Difficulty from "@/components/Difficulty";
 import GameStart from "@/components/GameStart";
-import GamePlay from "@/components/GamePlay";
 
 export default {
   name: "home",
@@ -35,8 +34,7 @@ export default {
     Amount,
     Category,
     Difficulty,
-    GameStart,
-    GamePlay
+    GameStart
   },
   data: () => ({
     token: null,
@@ -44,14 +42,18 @@ export default {
     selectedAmount: null,
     selectedCategory: null,
     selectedDifficulty: null,
-    apiObject: null
+    apiObject: null,
+    page: 1
   }),
-  mounted: function() {
+  created: function() {
     this.getToken();
   },
   methods: {
-    log(x) {
-      console.log(x);
+    sendParams(x) {
+      this.$router.push({
+        name: "about",
+        params: x
+      });
     },
     async getToken() {
       const token = await fetch(
@@ -70,16 +72,22 @@ export default {
     },
     setAmount(x) {
       this.selectedAmount = x;
+      this.page++;
     },
     setCategory(x) {
       this.selectedCategory = x;
+      this.page++;
     },
     setDifficulty(x) {
       this.selectedDifficulty = x;
-    },
-    setApiCall(x) {
-      this.apiObject = x;
+      this.page++;
     }
   }
 };
 </script>
+
+<style scoped>
+/* .background {
+  background: rgba(255, 0, 0, 1);
+} */
+</style>
