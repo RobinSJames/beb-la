@@ -1,6 +1,6 @@
 <template>
   <div class="question-box-container">
-    <b-jumbotron :header="currentQuestion.category">
+    <b-jumbotron>
       <template slot="lead">
         {{ currentQuestion.question }}
       </template>

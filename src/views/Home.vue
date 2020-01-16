@@ -2,10 +2,14 @@
   <div class="home">
     <NavBar />
     <div v-if="token.response_code === 0" class="background">
-      <LandingPage v-if="page === 1" @clicked="page++" />
-      <Amount v-if="page === 2" @amount="setAmount" />
-      <Category v-if="page === 3" @category="setCategory" />
-      <Difficulty v-if="page === 4" @difficulty="setDifficulty" />
+      <LandingPage v-if="page === 1" @clicked="page++" class="landingpage" />
+      <Amount v-if="page === 2" @amount="setAmount" class="amount" />
+      <Category v-if="page === 3" @category="setCategory" class="category" />
+      <Difficulty
+        v-if="page === 4"
+        @difficulty="setDifficulty"
+        class="difficulty"
+      />
       <GameStart
         v-if="page === 5"
         :amount="selectedAmount"
@@ -13,6 +17,7 @@
         :difficulty="selectedDifficulty"
         :type="type"
         @api="sendParams"
+        class="gamestart"
       />
     </div>
   </div>
@@ -87,7 +92,28 @@ export default {
 </script>
 
 <style scoped>
-/* .background {
+.background {
+  position: relative;
   background: rgba(255, 0, 0, 1);
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+.landingpage,
+.amount,
+.category,
+.difficulty,
+.gamestart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+/* .category {
+  position: absolute;
+  top: 50%;
+  left: 57%;
+  transform: translate(-50%, -50%);
 } */
 </style>

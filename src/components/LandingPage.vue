@@ -1,7 +1,6 @@
 <template>
   <div>
-    <p>Click on the button to start the game</p>
-    <b-button @click="nextPage">START</b-button>
+    <b-button pill @click="nextPage">SELECT GAME OPTIONS</b-button>
   </div>
 </template>
 

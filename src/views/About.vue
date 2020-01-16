@@ -41,8 +41,7 @@ export default {
       numTotal: 0,
       countDown: null,
       selectedCategoryOption: null,
-      fetchQuery:
-        "https://opentdb.com/api.php?amount=20&category=22&difficulty=easy&type=multiple"
+      response_code: null
     };
   },
   methods: {
@@ -91,6 +90,7 @@ export default {
       })
       .then(jsonData => {
         this.questions = jsonData.results;
+        this.response_code = jsonData.response_code;
         this.reset();
         this.countDownTimer();
       });
