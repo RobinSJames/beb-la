@@ -1,24 +1,31 @@
 <template>
   <!-- <div style="width: 80%;height:50%;overflow-y:scroll;padding-right: 15rem;box-sizing: content-box;"> -->
-  <div class="h-50" style="overflow-y:scroll;">
-    <b-row class="justify-content-md-center">
-      <b-list-group class="h-50">
-        <b-list-group-item
-          v-for="category in categories"
-          :key="category.id"
-          @click="selectCategory(category)"
-          >{{ category.name }}</b-list-group-item
-        >
-      </b-list-group>
+  <b-container fluid style="">
+    <b-row
+      v-for="categories in categoriesGroup"
+      :key="categories.index"
+      style=""
+      class="justify-content-center"
+    >
+      <b-col
+        v-for="category in categories"
+        :key="category.id"
+        @click="selectCategory(category)"
+        cols="11"
+        sm="3"
+        style="background:white;margin:4px 4px;padding:10px 32px;"
+        >{{ category.name }}</b-col
+      >
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>
+import _ from "lodash";
 export default {
   name: "Category",
   data: () => ({
-    categories: null
+    categoriesGroup: null
   }),
   mounted: function() {
     this.getCategories();
@@ -35,7 +42,7 @@ export default {
           return response.json();
         })
         .then(jsonData => {
-          this.categories = jsonData.trivia_categories;
+          this.categoriesGroup = _.chunk(jsonData.trivia_categories, 3);
         });
       return categoryList;
     }

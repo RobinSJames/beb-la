@@ -101,7 +101,6 @@ export default {
 }
 .landingpage,
 .amount,
-.category,
 .difficulty,
 .gamestart {
   position: absolute;
