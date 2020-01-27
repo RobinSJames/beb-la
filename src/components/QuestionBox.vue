@@ -1,8 +1,8 @@
 <template>
   <div class="question-box-container">
     <b-jumbotron>
-      <template slot="lead">
-        {{ currentQuestion.question }}
+      <template slot="lead" v-html="currentQuestion.question">
+        <div v-html="currentQuestion.question"></div>
       </template>
 
       <hr class="my-5" />
@@ -14,7 +14,7 @@
           @click="submitAnswer(index)"
           :class="answerClass(index)"
         >
-          {{ answer }}
+          <div v-html="answer"></div>
         </b-list-group-item>
       </b-list-group>
 
